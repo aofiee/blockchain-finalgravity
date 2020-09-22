@@ -4,21 +4,21 @@
 
 ### 1. Setup Project
 ```bash
-scaffold app lvl-1 aofiee hackercraft
+scaffold app lvl-1 aofiee finalgravity
 ```
 goto **/app/app.go**
 
 ```go
-const appName = "hackercraft"
+const appName = "finalgravity"
 ```
 
-หลังจากนั้นเราจะเข้าไปยัง directory **blockchain/x**
+หลังจากนั้นเราจะเข้าไปยัง directory **finalgravity/x**
 และ run command ด้านล่าง
 
 ```bash
-$scaffold module aofiee hackercraft beer
-$scaffold module aofiee hackercraft brewer
-$scaffold module aofiee hackercraft recipes
+$scaffold module aofiee finalgravity beer
+$scaffold module aofiee finalgravity brewer
+$scaffold module aofiee finalgravity recipes
 ```
 โดยแรกเริ่ม ระบบ file จะมีโครงสร้างดังนี้
 ```bash
