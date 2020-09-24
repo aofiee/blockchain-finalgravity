@@ -2,17 +2,17 @@ package cli
 
 import (
 	"fmt"
-	"bufio"
+	// "bufio"
 
 	"github.com/spf13/cobra"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
-	"github.com/cosmos/cosmos-sdk/client/context"
+	// "github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-	"github.com/cosmos/cosmos-sdk/x/auth/client/utils"
+	// sdk "github.com/cosmos/cosmos-sdk/types"
+	// "github.com/cosmos/cosmos-sdk/x/auth"
+	// "github.com/cosmos/cosmos-sdk/x/auth/client/utils"
 	"github.com/aofiee/finalgravity/x/brewer/types"
 )
 
@@ -29,6 +29,7 @@ func GetTxCmd(cdc *codec.Codec) *cobra.Command {
 	brewerTxCmd.AddCommand(flags.PostCommands(
 		// TODO: Add tx based commands
 		// GetCmd<Action>(cdc)
+		GetCmdCreateBrewer(cdc),
 	)...)
 
 	return brewerTxCmd

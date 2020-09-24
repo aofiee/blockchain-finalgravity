@@ -25,6 +25,9 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/slashing"
 	"github.com/cosmos/cosmos-sdk/x/staking"
 	"github.com/cosmos/cosmos-sdk/x/supply"
+	"github.com/aofiee/finalgravity/x/brewer"
+	brewerkeeper "github.com/aofiee/finalgravity/x/brewer/keeper"
+	brewertypes "github.com/aofiee/finalgravity/x/brewer/types"
 )
 
 const appName = "app"
@@ -53,6 +56,7 @@ var (
 		slashing.AppModuleBasic{},
 		supply.AppModuleBasic{},
 		// TODO: Add your module(s) AppModuleBasic
+		brewer.AppModuleBasic{},
 	)
 
 	// module account permissions
@@ -100,7 +104,7 @@ type NewApp struct {
 	supplyKeeper   supply.Keeper
 	paramsKeeper   params.Keeper
 	// TODO: Add your module(s)
-
+	brewerKeeper brewerkeeper.Keeper
 	// Module Manager
 	mm *module.Manager
 
@@ -126,7 +130,7 @@ func NewInitApp(
 
 	// TODO: Add the keys that module requires
 	keys := sdk.NewKVStoreKeys(bam.MainStoreKey, auth.StoreKey, staking.StoreKey,
-		supply.StoreKey, distr.StoreKey, slashing.StoreKey, params.StoreKey)
+		supply.StoreKey, distr.StoreKey, slashing.StoreKey, params.StoreKey, brewertypes.StoreKey)
 
 	tKeys := sdk.NewTransientStoreKeys(staking.TStoreKey, params.TStoreKey)
 
@@ -197,7 +201,11 @@ func NewInitApp(
 		&stakingKeeper,
 		app.subspaces[slashing.ModuleName],
 	)
-
+	app.brewerKeeper = brewerkeeper.NewKeeper(
+		app.bankKeeper,
+		app.cdc,
+		keys[brewertypes.StoreKey],
+	)
 	// register the staking hooks
 	// NOTE: stakingKeeper above is passed by reference, so that it will contain these hooks
 	app.stakingKeeper = *stakingKeeper.SetHooks(
@@ -220,7 +228,7 @@ func NewInitApp(
 		// TODO: Add your module(s)
 		staking.NewAppModule(app.stakingKeeper, app.accountKeeper, app.supplyKeeper),
 		slashing.NewAppModule(app.slashingKeeper, app.accountKeeper, app.stakingKeeper),
-
+		brew.NewAppModule(app.brewerkeeper, app.bankKeeper),
 	)
 	// During begin block slashing happens after distr.BeginBlocker so that
 	// there is nothing left over in the validator fee pool, so as to keep the
@@ -241,6 +249,7 @@ func NewInitApp(
 		// TODO: Add your module(s)
 		supply.ModuleName,
 		genutil.ModuleName,
+		brewertypes.ModuleName,
 	)
 
 	// register all module routes and module queriers

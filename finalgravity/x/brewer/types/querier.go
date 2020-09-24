@@ -6,7 +6,7 @@ const (
 	// TODO: Describe query parameters, update <action> with your query
 	// Query<Action>    = "<action>"
 )
-
+const (QueryListBrewer = "list-brewer")
 /* 
 Below you will be able how to set your own queries:
 
