@@ -176,202 +176,35 @@ $scaffold module aofiee finalgravity recipes
 9. Factory
 10. Image Label
 
-หลังจากนั้นเราจะทำการสร้าง Type Structure ขึ้นมา
-**x/brewer/types/types.go**
-
-```go
-package types
-
-import (
-	"fmt"
-	"strings"
-
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/google/uuid"
-)
-
-var MinNamePrice = sdk.Coins{sdk.NewInt64Coin("ferment", 1)}
-
-type Brewer struct {
-	Creator sdk.AccAddress `json:"creator" yaml:"creator"`
-	BrewerID string         `json:"BrewerID" yaml:"BrewerID"`
-	TypeOfBrewer string	`json:"TypeOfBrewer" yaml:"TypeOfBrewer"`
-	Address string	`json:"Address" yaml:"Address"`
-	Telephone string	`json:"Telephone" yaml:"Telephone"`
-	Email string	`json:"Email" yaml:"Email"`
-	Story string	`json:"Story" yaml:"Story"`
-	LogoURL string	`json:"LogoURL" yaml:"LogoURL"`
-	CoverURL string	`json:"CoverURL" yaml:"CoverURL"`
-	Founded string	`json:"Founded" yaml:"Founded"`
-	Founder string	`json:"Founder" yaml:"Founder"`
-	SiteURL string	`json:"SiteURL" yaml:"SiteURL"`
-}
-
-func NewBrewer() Brewer {
-	return Brewer {
-		BrewerID: uuid.New().String(),
-		TypeOfBrewer: "Home Brew",
-		Address: "44/261 Passorn Onut Prawet Prawet Bangkok 10250 Thailand.",
-		Telephone: "+6692 590 5444",
-		Email: "aofiee666@gmail.com",
-		Story: "Punk IPA is the beer that kick-started it. This light, golden classic has been subverted with new world hops to create an explosion of flavour. Bursts of caramel and tropical fruit with an all-out riot of grapefruit, pineapple and lychee, precede a spiky bitter finish.This is the beer that started it all - and it’s not done yet...",
-		LogoURL: "https://www.brewdog.com/static/version1600328468/frontend/Born/arcticFox/en_US/images/logo.svg",
-		CoverURL: "https://www.brewdog.com/static/version1600328468/frontend/Born/arcticFox/en_US/images/logo.svg",
-		Founded: "2020-09-18",
-		Founder: "Khomkrid Lerdprasert",
-		SiteURL: "https://www.aofiee.dev"
-	}
-}
-
-func (b Brewer) String() string {
-	return strings.TrimSpace(fmt.Sprintf(`BrewerID: %s`, b.BrewerID))
-}
+```bash
+appcli tx brewer create-brewer "Home Brew" \
+"44/261 Passorn Onnut Prawet Prawet Bangkok 10250" \
+"+66925905444" \
+"aofiee666@gmail.com" \
+"Punk IPA is the beer that kick-started it. This light, golden classic has been subverted with new world hops to create an explosion of flavour. Bursts of caramel and tropical fruit with an all-out riot of grapefruit, pineapple and lychee, precede a spiky bitter finish. This is the beer that started it all - and it’s not done yet... PUNK - Quintessential Empire with an anarchic twist." \
+"https://www.brewdog.com/static/version1600847552/frontend/Born/arcticFox/en_US/images/logo.svg" \
+"https://www.brewdog.com/static/version1600847552/frontend/Born/arcticFox/en_US/images/logo.svg" \
+"2018" \
+"Khomkrid Lerdprasert" \
+"https://www.aofiee.dev" --from=aofiee
 ```
 
-หลังจากนั้นเราจะไปทำการสร้าง Msg ให้กับ Brewer โดยหลักการตั้งชื่อ ของ SDK จะเป็น Msg{.Action} เช่นเราจะตั้งว่า SetBrewer ใน **x/brewer/types/MsgBrewer.go** เราจะตั้งเป็น MsgSetBrewer แทน
-
-```go
-package types
-
-import (
-	sdk "github.com/cosmos/cosmos-sdk/types"
-)
-
-const RouterKey = ModuleName
-
-type MsgSetBrewer struct {
-	Creator sdk.AccAddress `json:"creator" yaml:"creator"`
-	BrewerID string         `json:"BrewerID" yaml:"BrewerID"`
-	TypeOfBrewer string	`json:"TypeOfBrewer" yaml:"TypeOfBrewer"`
-	Address string	`json:"Address" yaml:"Address"`
-	Telephone string	`json:"Telephone" yaml:"Telephone"`
-	Email string	`json:"Email" yaml:"Email"`
-	Story string	`json:"Story" yaml:"Story"`
-	LogoURL string	`json:"LogoURL" yaml:"LogoURL"`
-	CoverURL string	`json:"CoverURL" yaml:"CoverURL"`
-	Founded string	`json:"Founded" yaml:"Founded"`
-	Founder string	`json:"Founder" yaml:"Founder"`
-	SiteURL string	`json:"SiteURL" yaml:"SiteURL"`
-}
-```
-
-หลังจากนั้นเราจะทำการสร้าง MsgSetBrewer เพื่อทำการ Set ค่าให้กับ Brewer โดยมี Attributes ตามนี้
-
-```go
-func NewMsgSetBrewer (creator sdk.AccAddress, brewerID string, typeofbrewer string, address string, telephone string, email string, story string, logourl string, coverurl string, founded string, founder string, siteurl string) MsgSetBrewer {
-	return MsgSetBrewer {
-		Creator: creator,
-		BrewerID: uuid.New().String(),
-		TypeOfBrewer: typeofbrewer,
-		Address: address,
-		Telephone: telephone,
-		Email: email,
-		Story: story,
-		LogoURL: logourl,
-		CoverURL: coverurl,
-		Founded: founded,
-		Founder: founder,
-		SiteURL: siteurl,
-	}
-}
-```
-
-หลังจากนั้นเราจะทำการส่ง route Msg ไปยัง Module ที่จัดการ Msg ของเราอีกที และทำการส่งชื่อ Tag เก็บไว้ใน Database 
-
-```go
-func (msg MsgSetBrewer) Route() string  {
-	return RouterKey
-}
-
-func (msg MsgSetBrewer) Type() string  {
-	return "SetBrewer"
-}
-```
-
-จากนั้นเราจะใช้ ValidateBasic เพื่อทำการ check และ validate Msg attribute ที่ส่งเข้ามาว่าถูกต้องหรือไม่
-
-```go
-func (msg MsgSetBrewer) ValidateBasic() error  {
-	if msg.Creator.Empty() {
-		return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress,msg.Creator.String())
-	}
-	if len(msg.BrewerID) == 0 {
-		return sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "BrewerID cannot be empty")
-	}
-	if len(msg.TypeOfBrewer) == 0 {
-		return sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "TypeOfBrewer cannot be empty")
-	}
-	if len(msg.Address) == 0 {
-		return sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "Address cannot be empty")
-	}
-	if len(msg.Telephone) == 0 {
-		return sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "Telephone cannot be empty")
-	}
-	if len(msg.Email) == 0 {
-		return sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "Email cannot be empty")
-	}
-	if len(msg.Story) == 0 {
-		return sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "Story cannot be empty")
-	}
-	if len(msg.LogoURL) == 0 {
-		return sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "LogoURL cannot be empty")
-	}
-	if len(msg.CoverURL) == 0 {
-		return sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "CoverURL cannot be empty")
-	}
-	if len(msg.Founded) == 0 {
-		return sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "Founded cannot be empty")
-	}
-	if len(msg.Founder) == 0 {
-		return sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "Founder cannot be empty")
-	}
-	if len(msg.SiteURL) == 0 {
-		return sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "SiteURL cannot be empty")
-	}
-	return nil
-}
-```
-
-และหลังจากนั้นเราจะบอกว่าใครจะต้องเป็นผู้ sign transaction บน Tx ให้กับเรา ในที่นี้ก็คือ Creator นั่นเอง
-
-```go
-func (msg MsgSetBrewer) GetSignBytes() []byte  {
-	return sdk.MustSortJSON(ModuleCdc.MustMarshalJSON(msg))
-}
-
-func (msg MsgSetBrewer) GetSigner() []sdk.AccAddress  {
-	return []sdk.AccAddress{msg.Creator}
-}
-```
-
-ต่อไปเราจะสร้าง Handler เพื่อสั่งให้มีการทำงาน เมื่อมีการรับ message event เข้ามา
-โดยเริ่มสร้างไฟล์ที่ **x/brewer/handlerMsgSetBrewer.go**
-
-```go
-package brewer
-
-import (
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/aofiee/hackercraft/x/brewer/types"
-	"github.com/aofiee/hackercraft/x/brewer/keeper"
-	"github.com/tendermint/tendermint/crypto"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	"fmt"
-)
-```
-
-ต่อไปเราจะใช้ NewHandler เป็น router ที่รับ Message เข้ามาแล้ว Forward ไปยัง Handler ที่เราต้องการ
-
-```go
-func NewHandler(keeper Keeper)  sdk.Handler {
-	return func (ctx sdk.Context, msg sdk.Msg) (*sdk.Result, error)  {
-		switch msg := msg.(type) {
-		case MsgSetBrewer:
-			return handleMsgSetBrewer(ctx, keerper, msg)
-		}
-		default:
-			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, fmt.Sprintf("Unrecognized nameservice Msg type: %v", msg.Type()))
-		}
-	}
-}
+```bash
+appcli q brewer list-brewer       
+[
+  {
+    "creator": "cosmos184cut6ds3tpatcggzy7mdtxzglwug72day6z9a",
+    "BrewerID": "5d2a483f-44a1-4bfe-a919-f40ab88f2dc5",
+    "TypeOfBrewer": "Home Brew",
+    "Address": "44/261 Passorn Onnut Prawet Prawet Bangkok 10250",
+    "Telephone": "+66925905444",
+    "Email": "aofiee666@gmail.com",
+    "Story": "Punk IPA is the beer that kick-started it. This light, golden classic has been subverted with new world hops to create an explosion of flavour. Bursts of caramel and tropical fruit with an all-out riot of grapefruit, pineapple and lychee, precede a spiky bitter finish. This is the beer that started it all - and it’s not done yet... PUNK - Quintessential Empire with an anarchic twist.",
+    "LogoURL": "https://www.brewdog.com/static/version1600847552/frontend/Born/arcticFox/en_US/images/logo.svg",
+    "CoverURL": "https://www.brewdog.com/static/version1600847552/frontend/Born/arcticFox/en_US/images/logo.svg",
+    "Founded": "2018",
+    "Founder": "Khomkrid Lerdprasert",
+    "SiteURL": "https://www.aofiee.dev"
+  }
+]
 ```

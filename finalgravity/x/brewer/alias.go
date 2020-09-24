@@ -33,6 +33,5 @@ type (
 	Keeper       = keeper.Keeper
 	GenesisState = types.GenesisState
 	Params       = types.Params
-
 	MsgCreateBrewer = types.MsgCreateBrewer
 )
