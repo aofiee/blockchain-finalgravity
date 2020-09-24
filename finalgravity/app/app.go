@@ -5,7 +5,6 @@ import (
 	"io"
 	"os"
 
-	"github.com/aofiee/finalgravity/x/brewer"
 	abci "github.com/tendermint/tendermint/abci/types"
 	"github.com/tendermint/tendermint/libs/log"
 	tmos "github.com/tendermint/tendermint/libs/os"
@@ -54,7 +53,6 @@ var (
 		slashing.AppModuleBasic{},
 		supply.AppModuleBasic{},
 		// TODO: Add your module(s) AppModuleBasic
-		brewer.AppModuleBasic{},
 	)
 
 	// module account permissions
@@ -222,6 +220,7 @@ func NewInitApp(
 		// TODO: Add your module(s)
 		staking.NewAppModule(app.stakingKeeper, app.accountKeeper, app.supplyKeeper),
 		slashing.NewAppModule(app.slashingKeeper, app.accountKeeper, app.stakingKeeper),
+
 	)
 	// During begin block slashing happens after distr.BeginBlocker so that
 	// there is nothing left over in the validator fee pool, so as to keep the
