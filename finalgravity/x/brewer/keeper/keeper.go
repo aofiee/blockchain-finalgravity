@@ -3,12 +3,11 @@ package keeper
 import (
 	"fmt"
 
-	"github.com/tendermint/tendermint/crypto"
 	"github.com/tendermint/tendermint/libs/log"
 
+	"github.com/aofiee/finalgravity/x/brewer/types"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/aofiee/finalgravity/x/brewer/types"
 )
 
 // Keeper of the brewer store
@@ -33,25 +32,37 @@ func (k Keeper) Logger(ctx sdk.Context) log.Logger {
 	return ctx.Logger().With("module", fmt.Sprintf("x/%s", types.ModuleName))
 }
 
-// Get returns the pubkey from the adddress-pubkey relation
-func (k Keeper) Get(ctx sdk.Context, key string) (/* TODO: Fill out this type */, error) {
+// GetBrewer returns the pubkey from the adddress-pubkey relation
+func (k Keeper) GetBrewer(ctx sdk.Context, key string) (types.Brewer, error) {
 	store := ctx.KVStore(k.storeKey)
-	var item /* TODO: Fill out this type */
+	var brewer types.Brewer
 	byteKey := []byte(key)
-	err := k.cdc.UnmarshalBinaryLengthPrefixed(store.Get(byteKey), &item)
+	err := k.cdc.UnmarshalBinaryLengthPrefixed(store.Get(byteKey), &brewer)
 	if err != nil {
-		return nil, err
+		return brewer, err
 	}
-	return item, nil
+	return brewer, nil
 }
 
-func (k Keeper) set(ctx sdk.Context, key string, value /* TODO: fill out this type */ ) {
+// SetBrewer the entire Brewer metadata struct for a name
+func (k Keeper) SetBrewer(ctx sdk.Context, key string, brewer types.Brewer) {
+	if brewer.Creator.Empty() {
+		return
+	}
+	fmt.Printf("brewer is %v", brewer)
 	store := ctx.KVStore(k.storeKey)
-	bz := k.cdc.MustMarshalBinaryLengthPrefixed(value)
+	bz := k.cdc.MustMarshalBinaryLengthPrefixed(brewer)
 	store.Set([]byte(key), bz)
 }
 
-func (k Keeper) delete(ctx sdk.Context, key string) {
+// DeleteBrewer the entire Brewer metadata struct for a name
+func (k Keeper) DeleteBrewer(ctx sdk.Context, name string) {
 	store := ctx.KVStore(k.storeKey)
-	store.Delete([]byte(key))
+	store.Delete([]byte(name))
+}
+
+// GetBrewerIterator an iterator over all names in which the keys are the names and the values are the brewer
+func (k Keeper) GetBrewerIterator(ctx sdk.Context) sdk.Iterator {
+	store := ctx.KVStore(k.storeKey)
+	return sdk.KVStorePrefixIterator(store, []byte{})
 }
