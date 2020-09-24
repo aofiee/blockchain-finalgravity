@@ -11,7 +11,7 @@ ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=NewApp \
 	-X github.com/cosmos/cosmos-sdk/version.Commit=$(COMMIT) 
 
 BUILD_FLAGS := -ldflags '$(ldflags)'
-
+include Makefile.ledger
 all: install
 
 install: go.sum

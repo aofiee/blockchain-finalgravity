@@ -2,8 +2,8 @@ package brewer
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	// abci "github.com/tendermint/tendermint/abci/types"
-	"github.com/aofiee/finalgravity/x/brewer/keeper"
+	abci "github.com/tendermint/tendermint/abci/types"
+	// "github.com/aofiee/finalgravity/x/brewer/keeper"
 )
 
 // BeginBlocker check for infraction evidence or downtime of validators

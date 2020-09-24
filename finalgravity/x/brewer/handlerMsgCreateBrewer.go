@@ -2,7 +2,7 @@ package brewer
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	// sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/aofiee/finalgravity/x/brewer/types"
 	"github.com/aofiee/finalgravity/x/brewer/keeper"
 )
@@ -11,7 +11,6 @@ func handleMsgCreateBrewer(ctx sdk.Context, k keeper.Keeper, msg types.MsgCreate
 	var brewer = types.Brewer{
 		Creator:      msg.Creator,
 		BrewerID:     msg.BrewerID,
-		Name:         msg.Name,
 		TypeOfBrewer: msg.TypeOfBrewer,
 		Address:      msg.Address,
 		Telephone:    msg.Telephone,
@@ -23,6 +22,6 @@ func handleMsgCreateBrewer(ctx sdk.Context, k keeper.Keeper, msg types.MsgCreate
 		Founder:      msg.Founder,
 		SiteURL:      msg.SiteURL,
 	}
-	k.CreatePost(ctx, brewer)
+	k.CreateBrewer(ctx, brewer)
 	return &sdk.Result{Events: ctx.EventManager().Events()}, nil
 }

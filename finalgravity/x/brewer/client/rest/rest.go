@@ -6,8 +6,9 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/context"
 )
 
-// RegisterRoutes registers brewer-related REST handlers to a router
+// RegisterRoutes registers blog-related REST handlers to a router
 func RegisterRoutes(cliCtx context.CLIContext, r *mux.Router) {
-	registerQueryRoutes(cliCtx, r)
-	registerTxRoutes(cliCtx, r)
+  // this line is used by starport scaffolding
+	r.HandleFunc("/brewer/create", listBrewerHandler(cliCtx, "brewer")).Methods("GET")
+	r.HandleFunc("/brewer/create", createBrewerHandler(cliCtx)).Methods("POST")
 }

@@ -26,8 +26,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/staking"
 	"github.com/cosmos/cosmos-sdk/x/supply"
 	"github.com/aofiee/finalgravity/x/brewer"
-	brewerkeeper "github.com/aofiee/finalgravity/x/brewer/keeper"
-	brewertypes "github.com/aofiee/finalgravity/x/brewer/types"
 )
 
 const appName = "app"
@@ -104,7 +102,7 @@ type NewApp struct {
 	supplyKeeper   supply.Keeper
 	paramsKeeper   params.Keeper
 	// TODO: Add your module(s)
-	brewerKeeper brewerkeeper.Keeper
+	brewerKeeper brewer.Keeper
 	// Module Manager
 	mm *module.Manager
 
@@ -130,7 +128,7 @@ func NewInitApp(
 
 	// TODO: Add the keys that module requires
 	keys := sdk.NewKVStoreKeys(bam.MainStoreKey, auth.StoreKey, staking.StoreKey,
-		supply.StoreKey, distr.StoreKey, slashing.StoreKey, params.StoreKey, brewertypes.StoreKey)
+		supply.StoreKey, distr.StoreKey, slashing.StoreKey, params.StoreKey, brewer.StoreKey)
 
 	tKeys := sdk.NewTransientStoreKeys(staking.TStoreKey, params.TStoreKey)
 
@@ -201,11 +199,7 @@ func NewInitApp(
 		&stakingKeeper,
 		app.subspaces[slashing.ModuleName],
 	)
-	app.brewerKeeper = brewerkeeper.NewKeeper(
-		app.bankKeeper,
-		app.cdc,
-		keys[brewertypes.StoreKey],
-	)
+
 	// register the staking hooks
 	// NOTE: stakingKeeper above is passed by reference, so that it will contain these hooks
 	app.stakingKeeper = *stakingKeeper.SetHooks(
@@ -215,20 +209,24 @@ func NewInitApp(
 	)
 
 	// TODO: Add your module(s) keepers
-
+	app.brewerKeeper = brewer.NewKeeper(
+		app.bankKeeper,
+		app.cdc,
+		keys[brewer.StoreKey],
+	)
 	// NOTE: Any module instantiated in the module manager that is later modified
 	// must be passed by reference here.
 	app.mm = module.NewManager(
 		genutil.NewAppModule(app.accountKeeper, app.stakingKeeper, app.BaseApp.DeliverTx),
 		auth.NewAppModule(app.accountKeeper),
 		bank.NewAppModule(app.bankKeeper, app.accountKeeper),
+		brewer.NewAppModule(app.brewerKeeper, app.bankKeeper),
 		supply.NewAppModule(app.supplyKeeper, app.accountKeeper),
 		distr.NewAppModule(app.distrKeeper, app.accountKeeper, app.supplyKeeper, app.stakingKeeper),
 		slashing.NewAppModule(app.slashingKeeper, app.accountKeeper, app.stakingKeeper),
 		// TODO: Add your module(s)
 		staking.NewAppModule(app.stakingKeeper, app.accountKeeper, app.supplyKeeper),
 		slashing.NewAppModule(app.slashingKeeper, app.accountKeeper, app.stakingKeeper),
-		brew.NewAppModule(app.brewerkeeper, app.bankKeeper),
 	)
 	// During begin block slashing happens after distr.BeginBlocker so that
 	// there is nothing left over in the validator fee pool, so as to keep the
@@ -247,9 +245,9 @@ func NewInitApp(
 		bank.ModuleName,
 		slashing.ModuleName,
 		// TODO: Add your module(s)
+		brewer.ModuleName,
 		supply.ModuleName,
 		genutil.ModuleName,
-		brewertypes.ModuleName,
 	)
 
 	// register all module routes and module queriers
