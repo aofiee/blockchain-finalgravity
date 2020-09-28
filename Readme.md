@@ -208,3 +208,21 @@ appcli q brewer list-brewer
   }
 ]
 ```
+
+```bash
+appcli q brewer get-brewer 6983a152-e282-46dc-aabb-fe234b5c252d
+{
+  "creator": "cosmos1wtdy42wxv89jh0vndwk4a6qjz946g7lt2yt9ge",
+  "BrewerID": "6983a152-e282-46dc-aabb-fe234b5c252d",
+  "TypeOfBrewer": "Home Brew",
+  "Address": "44/261 Passorn Onnut Prawet Prawet Bangkok 10250",
+  "Telephone": "+66925905444",
+  "Email": "aofiee666@gmail.com",
+  "Story": "Punk IPA is the beer that kick-started it. This light, golden classic has been subverted with new world hops to create an explosion of flavour. Bursts of caramel and tropical fruit with an all-out riot of grapefruit, pineapple and lychee, precede a spiky bitter finish. This is the beer that started it all - and it’s not done yet... PUNK - Quintessential Empire with an anarchic twist.",
+  "LogoURL": "https://www.brewdog.com/static/version1600847552/frontend/Born/arcticFox/en_US/images/logo.svg",
+  "CoverURL": "https://www.brewdog.com/static/version1600847552/frontend/Born/arcticFox/en_US/images/logo.svg",
+  "Founded": "2018",
+  "Founder": "Khomkrid Lerdprasert",
+  "SiteURL": "https://www.aofiee.dev"
+}
+```

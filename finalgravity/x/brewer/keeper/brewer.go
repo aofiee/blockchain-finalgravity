@@ -36,7 +36,7 @@ func (k Keeper) GetBrewer(ctx sdk.Context, brewerID string) types.Brewer {
 	store := ctx.KVStore(k.storeKey)
 	// fmt.Printf("brewerID from brewer %v\n",brewerID)
 	bz := store.Get([]byte(types.BrewerPrefix + brewerID))
-	o := BytesToString(bz)
+	// o := BytesToString(bz)
 	// fmt.Printf("o %v\n\n",o)
 	// fmt.Printf("bz %v\n",bz)
 	var brewer types.Brewer
