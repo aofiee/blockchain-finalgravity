@@ -5,6 +5,7 @@ import (
 	// sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/aofiee/finalgravity/x/brewer/types"
 	"github.com/aofiee/finalgravity/x/brewer/keeper"
+	"github.com/tendermint/tendermint/crypto"
 )
 
 func handleMsgCreateBrewer(ctx sdk.Context, k keeper.Keeper, msg types.MsgCreateBrewer) (*sdk.Result, error) {
@@ -23,5 +24,10 @@ func handleMsgCreateBrewer(ctx sdk.Context, k keeper.Keeper, msg types.MsgCreate
 		SiteURL:      msg.SiteURL,
 	}
 	k.CreateBrewer(ctx, brewer)
+	moduleAcct := sdk.AccAddress(crypto.AddressHash([]byte(types.ModuleName)))
+	payment, _ := sdk.ParseCoins("200rune")
+	if err := k.CoinKeeper.SendCoins(ctx, msg.Creator, moduleAcct, payment); err != nil {
+		return nil, err
+	}
 	return &sdk.Result{Events: ctx.EventManager().Events()}, nil
 }

@@ -7,6 +7,7 @@ const (
 	// Query<Action>    = "<action>"
 )
 const (QueryListBrewer = "list-brewer")
+const (QueryGetBrewerByID = "get-brewer")
 /* 
 Below you will be able how to set your own queries:
 
