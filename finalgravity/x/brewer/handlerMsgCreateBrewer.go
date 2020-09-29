@@ -1,6 +1,7 @@
 package brewer
 
 import (
+	"fmt"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	// sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/aofiee/finalgravity/x/brewer/types"
@@ -25,6 +26,9 @@ func handleMsgCreateBrewer(ctx sdk.Context, k keeper.Keeper, msg types.MsgCreate
 	}
 	k.CreateBrewer(ctx, brewer)
 	moduleAcct := sdk.AccAddress(crypto.AddressHash([]byte(types.ModuleName)))
+	fmt.Printf("moduleAcct %v\n",moduleAcct)
+	totalCoin := k.CoinKeeper.GetCoins(ctx, moduleAcct)
+	fmt.Printf("totalCoin %v\n",totalCoin)
 	payment, _ := sdk.ParseCoins("200rune")
 	if err := k.CoinKeeper.SendCoins(ctx, msg.Creator, moduleAcct, payment); err != nil {
 		return nil, err

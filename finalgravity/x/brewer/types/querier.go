@@ -8,6 +8,7 @@ const (
 )
 const (QueryListBrewer = "list-brewer")
 const (QueryGetBrewerByID = "get-brewer")
+const (QueryGetBrewerWallet = "get-wallet")
 /* 
 Below you will be able how to set your own queries:
 

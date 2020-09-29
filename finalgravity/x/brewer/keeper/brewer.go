@@ -7,6 +7,7 @@ import (
 	"github.com/aofiee/finalgravity/x/brewer/types"
 	// abci "github.com/tendermint/tendermint/abci/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/tendermint/tendermint/crypto"
 )
 
 func (k Keeper) CreateBrewer(ctx sdk.Context, brewer types.Brewer) {
@@ -53,4 +54,20 @@ func GetBrewerByID(ctx sdk.Context, path []string, k Keeper) ([]byte, error) {
 	}
 
 	return res, nil
+}
+
+func GetModuleBalance(ctx sdk.Context, k Keeper) ([]byte, error){
+	moduleAcct := sdk.AccAddress(crypto.AddressHash([]byte(types.ModuleName)))
+	fmt.Printf("moduleAcct %v\n",moduleAcct)
+	totalCoin := k.CoinKeeper.GetCoins(ctx, moduleAcct)
+	fmt.Printf("totalCoin %v\n",totalCoin)
+	var wallet = types.BrewerWallet{
+		Creator: moduleAcct,
+		Amount: totalCoin,
+	}
+	res, err := codec.MarshalJSONIndent(k.cdc, wallet)
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error())
+	}
+	return res, nil	
 }

@@ -31,6 +31,7 @@ func GetQueryCmd(queryRoute string, cdc *codec.Codec) *cobra.Command {
 	// TODO: Add query Cmds
 			GetCmdListBrewer(queryRoute, cdc),
 			GetCmdRetriveBrewerByID(queryRoute, cdc),
+			GetCmdRetriveBrewerWallet(queryRoute, cdc),
 		)...,
 	)
 

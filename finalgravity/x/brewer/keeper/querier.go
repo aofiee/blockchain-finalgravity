@@ -23,6 +23,8 @@ func NewQuerier(k Keeper) sdk.Querier {
 		case types.QueryGetBrewerByID:
 			fmt.Printf("QueryGetBrewerByID %v \npath[1:] %v\n",types.QueryGetBrewerByID,path[1:])
 			return GetBrewerByID(ctx,path[1:], k)
+		case types.QueryGetBrewerWallet:
+			return GetModuleBalance(ctx,k)
 		default:
 			fmt.Printf("default %v",path[0])
 			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "unknown brewer query endpoint")

@@ -2,7 +2,6 @@ package cli
 
 import (
 	"fmt"
-
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/aofiee/finalgravity/x/brewer/types"
@@ -43,6 +42,27 @@ func GetCmdRetriveBrewerByID(queryRoute string, cdc *codec.Codec)  *cobra.Comman
 			}
 			//fmt.Printf("GetCmdRetriveModuleAddress %v",res)
 			var out types.Brewer
+			cdc.MustUnmarshalJSON(res, &out)
+			return cliCtx.PrintOutput(out)
+		},
+		
+	}
+}
+
+func GetCmdRetriveBrewerWallet(queryRoute string, cdc *codec.Codec)  *cobra.Command {
+	return &cobra.Command{
+		Use:   "get-wallet",
+		Short: "Get brewer wallet",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			cliCtx := context.NewCLIContext().WithCodec(cdc)
+			path := fmt.Sprintf("custom/%s/"+types.QueryGetBrewerWallet, queryRoute)
+			res, _, err := cliCtx.QueryWithData(path, nil)
+			fmt.Printf("path %v\n",path)
+			if err != nil {
+				fmt.Printf("could not list BrewerID\n%s\n", err.Error())
+				return nil
+			}
+			var out types.BrewerWallet
 			cdc.MustUnmarshalJSON(res, &out)
 			return cliCtx.PrintOutput(out)
 		},

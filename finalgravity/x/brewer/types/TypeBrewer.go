@@ -16,3 +16,8 @@ type Brewer struct {
 	Founder string	`json:"Founder" yaml:"Founder"`
 	SiteURL string	`json:"SiteURL" yaml:"SiteURL"`
 }
+
+type BrewerWallet struct {
+	Creator sdk.AccAddress `json:"creator" yaml:"creator"`
+	Amount sdk.Coins `json:"Amount" yaml:"Amount"`
+}
