@@ -7,13 +7,14 @@ const (
 	// StoreKey to be used when creating the KVStore
 	StoreKey = ModuleName
 
-  // RouterKey to be used for routing msgs
-  RouterKey = ModuleName
+	// RouterKey to be used for routing msgs
+	RouterKey = ModuleName
 
-  // QuerierRoute to be used for querierer msgs
+	// QuerierRoute to be used for querierer msgs
 	QuerierRoute = ModuleName
 )
 
+//BrewerPrefix const
 const (
 	BrewerPrefix = "brewer-"
 )

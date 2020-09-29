@@ -5,6 +5,7 @@ import (
 	"github.com/aofiee/finalgravity/x/brewer/types"
 )
 
+//Const
 const (
 	ModuleName        = types.ModuleName
 	RouterKey         = types.RouterKey
@@ -14,6 +15,7 @@ const (
 	QuerierRoute = types.QuerierRoute
 )
 
+// functions & variable aliases
 var (
 	// functions aliases
 	NewKeeper           = keeper.NewKeeper
@@ -29,9 +31,10 @@ var (
 	NewMsgCreateBrewer = types.NewMsgCreateBrewer
 )
 
+//Keeper GenesisState Params MsgCreateBrewer is ...
 type (
-	Keeper       = keeper.Keeper
-	GenesisState = types.GenesisState
-	Params       = types.Params
+	Keeper          = keeper.Keeper
+	GenesisState    = types.GenesisState
+	Params          = types.Params
 	MsgCreateBrewer = types.MsgCreateBrewer
 )

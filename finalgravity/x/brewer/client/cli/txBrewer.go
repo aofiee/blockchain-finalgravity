@@ -5,14 +5,15 @@ import (
 
 	"github.com/spf13/cobra"
 
+	"github.com/aofiee/finalgravity/x/brewer/types"
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/auth/client/utils"
-	"github.com/aofiee/finalgravity/x/brewer/types"
 )
 
+//GetCmdCreateBrewer function
 func GetCmdCreateBrewer(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
 		Use:   "create-brewer [TypeOfBrewer] [Address] [Telephone] [Email] [Story] [LogoURL] [CoverURL] [Founded] [Founder] [SiteURL]",

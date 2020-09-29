@@ -2,12 +2,14 @@ package cli
 
 import (
 	"fmt"
+
+	"github.com/aofiee/finalgravity/x/brewer/types"
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/aofiee/finalgravity/x/brewer/types"
 	"github.com/spf13/cobra"
 )
 
+//GetCmdListBrewer function
 func GetCmdListBrewer(queryRoute string, cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
 		Use:   "list-brewer",
@@ -26,7 +28,8 @@ func GetCmdListBrewer(queryRoute string, cdc *codec.Codec) *cobra.Command {
 	}
 }
 
-func GetCmdRetriveBrewerByID(queryRoute string, cdc *codec.Codec)  *cobra.Command {
+//GetCmdRetriveBrewerByID function
+func GetCmdRetriveBrewerByID(queryRoute string, cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
 		Use:   "get-brewer [BrewerID]",
 		Short: "Get brewer by BrewerID",
@@ -34,7 +37,7 @@ func GetCmdRetriveBrewerByID(queryRoute string, cdc *codec.Codec)  *cobra.Comman
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 			BrewerID := args[0]
-			path := fmt.Sprintf("custom/%s/"+types.QueryGetBrewerByID+"/%s/", queryRoute,BrewerID)
+			path := fmt.Sprintf("custom/%s/"+types.QueryGetBrewerByID+"/%s/", queryRoute, BrewerID)
 			res, _, err := cliCtx.QueryWithData(path, nil)
 			if err != nil {
 				fmt.Printf("could not list BrewerID\n%s\n", err.Error())
@@ -45,11 +48,11 @@ func GetCmdRetriveBrewerByID(queryRoute string, cdc *codec.Codec)  *cobra.Comman
 			cdc.MustUnmarshalJSON(res, &out)
 			return cliCtx.PrintOutput(out)
 		},
-		
 	}
 }
 
-func GetCmdRetriveBrewerWallet(queryRoute string, cdc *codec.Codec)  *cobra.Command {
+//GetCmdRetriveBrewerWallet function
+func GetCmdRetriveBrewerWallet(queryRoute string, cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
 		Use:   "get-wallet",
 		Short: "Get brewer wallet",
@@ -57,7 +60,7 @@ func GetCmdRetriveBrewerWallet(queryRoute string, cdc *codec.Codec)  *cobra.Comm
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 			path := fmt.Sprintf("custom/%s/"+types.QueryGetBrewerWallet, queryRoute)
 			res, _, err := cliCtx.QueryWithData(path, nil)
-			fmt.Printf("path %v\n",path)
+			fmt.Printf("path %v\n", path)
 			if err != nil {
 				fmt.Printf("could not list BrewerID\n%s\n", err.Error())
 				return nil
@@ -66,6 +69,5 @@ func GetCmdRetriveBrewerWallet(queryRoute string, cdc *codec.Codec)  *cobra.Comm
 			cdc.MustUnmarshalJSON(res, &out)
 			return cliCtx.PrintOutput(out)
 		},
-		
 	}
 }

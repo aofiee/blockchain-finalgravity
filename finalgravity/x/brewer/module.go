@@ -6,22 +6,22 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/spf13/cobra"
 
-	abci "github.com/tendermint/tendermint/abci/types"
-	"github.com/cosmos/cosmos-sdk/x/bank"
-	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/types/module"
 	"github.com/aofiee/finalgravity/x/brewer/client/cli"
 	"github.com/aofiee/finalgravity/x/brewer/client/rest"
 	"github.com/aofiee/finalgravity/x/brewer/keeper"
 	"github.com/aofiee/finalgravity/x/brewer/types"
+	"github.com/cosmos/cosmos-sdk/client/context"
+	"github.com/cosmos/cosmos-sdk/codec"
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/types/module"
+	"github.com/cosmos/cosmos-sdk/x/bank"
+	abci "github.com/tendermint/tendermint/abci/types"
 )
 
 // Type check to ensure the interface is properly implemented
 var (
-	_ module.AppModule           = AppModule{}
-	_ module.AppModuleBasic      = AppModuleBasic{}
+	_ module.AppModule      = AppModule{}
+	_ module.AppModuleBasic = AppModuleBasic{}
 )
 
 // AppModuleBasic defines the basic application module used by the brewer module.
@@ -73,7 +73,7 @@ func (AppModuleBasic) GetQueryCmd(cdc *codec.Codec) *cobra.Command {
 // AppModule implements an application module for the brewer module.
 type AppModule struct {
 	AppModuleBasic
-	keeper        keeper.Keeper
+	keeper     keeper.Keeper
 	coinKeeper bank.Keeper
 	// TODO: Add keepers that your application depends on
 }
@@ -81,8 +81,8 @@ type AppModule struct {
 // NewAppModule creates a new AppModule object
 func NewAppModule(k keeper.Keeper, bankKeeper bank.Keeper) AppModule {
 	return AppModule{
-		AppModuleBasic:      AppModuleBasic{},
-		keeper:              k,
+		AppModuleBasic: AppModuleBasic{},
+		keeper:         k,
 		coinKeeper:     bankKeeper,
 		// TODO: Add keepers that your application depends on
 	}
