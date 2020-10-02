@@ -25,3 +25,11 @@ type BrewerWallet struct {
 	Creator sdk.AccAddress `json:"creator" yaml:"creator"`
 	Amount  sdk.Coins      `json:"Amount" yaml:"Amount"`
 }
+
+//WithdrawCoinsFromModuleWallet struct
+type WithdrawCoinsFromModuleWallet struct {
+	WithdrawID string         `json:"WithdrawID" yaml:"WithdrawID"`
+	Sender     sdk.AccAddress `json:"Sender" yaml:"Sender"`
+	Reciever   sdk.AccAddress `json:"Reciever" yaml:"Reciever"`
+	Amount     sdk.Coins      `json:"Amount" yaml:"Amount"`
+}

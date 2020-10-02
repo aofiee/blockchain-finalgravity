@@ -28,13 +28,15 @@ var (
 	// variable aliases
 	ModuleCdc = types.ModuleCdc
 
-	NewMsgCreateBrewer = types.NewMsgCreateBrewer
+	NewMsgCreateBrewer                        = types.NewMsgCreateBrewer
+	NewMsgCreateWithdrawCoinsFromModuleWallet = types.NewMsgCreateWithdrawCoinsFromModuleWallet
 )
 
 //Keeper GenesisState Params MsgCreateBrewer is ...
 type (
-	Keeper          = keeper.Keeper
-	GenesisState    = types.GenesisState
-	Params          = types.Params
-	MsgCreateBrewer = types.MsgCreateBrewer
+	Keeper                                 = keeper.Keeper
+	GenesisState                           = types.GenesisState
+	Params                                 = types.Params
+	MsgCreateBrewer                        = types.MsgCreateBrewer
+	MsgCreateWithdrawCoinsFromModuleWallet = types.MsgCreateWithdrawCoinsFromModuleWallet
 )

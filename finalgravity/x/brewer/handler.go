@@ -20,8 +20,13 @@ func NewHandler(k Keeper) sdk.Handler {
 		// case Msg<Action>:
 		// 	return handleMsg<Action>(ctx, k, msg)
 		case types.MsgCreateBrewer:
+			fmt.Printf("MsgCreateBrewer")
 			return handleMsgCreateBrewer(ctx, k, msg)
+		case types.MsgCreateWithdrawCoinsFromModuleWallet:
+			fmt.Printf("types.MsgCreateWithdrawCoinsFromModuleWallet %v", msg)
+			return handleMsgCreateWithdrawCoinsFromModuleWallet(ctx, k, msg)
 		default:
+			fmt.Printf("default")
 			errMsg := fmt.Sprintf("unrecognized %s message type: %T", ModuleName, msg)
 			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, errMsg)
 		}

@@ -14,7 +14,7 @@ import (
 
 // NewQuerier creates a new querier for brewer clients.
 func NewQuerier(k Keeper) sdk.Querier {
-	fmt.Printf("NewQuerier")
+	// fmt.Printf("NewQuerier")
 	return func(ctx sdk.Context, path []string, req abci.RequestQuery) ([]byte, error) {
 		switch path[0] {
 		// TODO: Put the modules query routes

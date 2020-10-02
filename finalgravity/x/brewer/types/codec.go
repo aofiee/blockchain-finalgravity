@@ -8,6 +8,7 @@ import (
 func RegisterCodec(cdc *codec.Codec) {
 	// TODO: Register the modules msgs
 	cdc.RegisterConcrete(MsgCreateBrewer{}, "brewer/CreateBrewer", nil)
+	cdc.RegisterConcrete(MsgCreateWithdrawCoinsFromModuleWallet{}, "brewer/CreateWithdraw", nil)
 }
 
 // ModuleCdc defines the module codec
