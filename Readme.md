@@ -226,3 +226,125 @@ appcli q brewer get-brewer 6983a152-e282-46dc-aabb-fe234b5c252d
   "SiteURL": "https://www.aofiee.dev"
 }
 ```
+
+```bash
+appcli tx brewer withdraw-to 200rune --from=aofiee   
+Address 6858E98713157CF2BB73D21343EDD330181012E0
+msg {c64210e3-8b19-42b1-aef7-845a06da539a 75BA680421D78E41CAF21332A07416A98A8C0725 6858E98713157CF2BB73D21343EDD330181012E0 200rune}
+{
+  "chain_id": "beer",
+  "account_number": "3",
+  "sequence": "5",
+  "fee": {
+    "amount": [],
+    "gas": "200000"
+  },
+  "msgs": [
+    {
+      "type": "brewer/CreateWithdraw",
+      "value": {
+        "WithdrawID": "c64210e3-8b19-42b1-aef7-845a06da539a",
+        "Sender": "cosmos1wkaxsppp678yrjhjzve2qaqk4x9gcpe9wu2rrj",
+        "Reciever": "cosmos1dpvwnpcnz4709wmn6gf58mwnxqvpqyhqfa5xmx",
+        "Amount": [
+          {
+            "denom": "rune",
+            "amount": "200"
+          }
+        ]
+      }
+    }
+  ],
+  "memo": ""
+}
+
+confirm transaction before signing and broadcasting [y/N]: y
+msg {c64210e3-8b19-42b1-aef7-845a06da539a 75BA680421D78E41CAF21332A07416A98A8C0725 6858E98713157CF2BB73D21343EDD330181012E0 200rune}
+{
+  "height": "0",
+  "txhash": "5FFEB5F885065F9713E480BFD60A19587523E5712FAD094B3C52EE354BC4A190",
+  "raw_log": "[]"
+}
+```
+
+```bash
+curl -s http://localhost:1317/auth/accounts/$(appcli keys show aofiee -a)
+{
+  "height": "1558",
+  "result": {
+    "type": "cosmos-sdk/Account",
+    "value": {
+      "address": "cosmos15g40zf9trjyxrwtvds3eq877mc9nhqyfgu8ax5",
+      "coins": [
+        {
+          "denom": "gold",
+          "amount": "100000000"
+        },
+        {
+          "denom": "rune",
+          "amount": "99999600"
+        }
+      ],
+      "public_key": "cosmospub1addwnpepqgsxrntugmsvuak0jcm8n4hfuedmsvy85htpwj6hmmn73fmq0nwc2rxtxsk",
+      "account_number": 3,
+      "sequence": 3
+    }
+  }
+}
+```
+
+```bash
+curl -XPOST -s http://localhost:1317/brewer/create --data-binary '{"base_req":{"from":"'$(appcli keys show aofiee -a)'","chain_id":"beer"},"creator":"'$(appcli keys show aofiee -a)'","TypeOfBrewer":"Home Brew","Address":"44/261 Passorn Onnut Prawet Prawet Bangkok 10250","Telephone":"+66925905444","Email":"aofiee666@gmail.com","Story":"Punk IPA is the beer that kick-started it. This light, golden classic has been subverted with new world hops to create an explosion of flavour. Bursts of caramel and tropical fruit with an all-out riot of grapefruit, pineapple and lychee, precede a spiky bitter finish. This is the beer that started it all - and it’s not done yet... PUNK - Quintessential Empire with an anarchic twist.","LogoURL":"https://www.brewdog.com/static/version1600847552/frontend/Born/arcticFox/en_US/images/logo.svg","CoverURL":"https://www.brewdog.com/static/version1600847552/frontend/Born/arcticFox/en_US/images/logo.svg","Founded":"2018","Founder":"Khomkrid Lerdprasert","SiteURL":"https://www.aofiee.dev"}' > unsignedTx.json
+```
+
+```bash
+appcli tx sign unsignedTx.json --from aofiee --offline --chain-id beer --sequence 4 --account-number 3 > signedTx.json
+```
+```json
+{
+  "type": "cosmos-sdk/StdTx",
+  "value": {
+    "msg": [
+      {
+        "type": "brewer/CreateBrewer",
+        "value": {
+          "creator": "cosmos15g40zf9trjyxrwtvds3eq877mc9nhqyfgu8ax5",
+          "BrewerID": "bd7032f5-c596-4afb-a44a-26572b99552e",
+          "TypeOfBrewer": "Home Brew",
+          "Address": "44/261 Passorn Onnut Prawet Prawet Bangkok 10250",
+          "Telephone": "+66925905444",
+          "Email": "aofiee666@gmail.com",
+          "Story": "Punk IPA is the beer that kick-started it. This light, golden classic has been subverted with new world hops to create an explosion of flavour. Bursts of caramel and tropical fruit with an all-out riot of grapefruit, pineapple and lychee, precede a spiky bitter finish. This is the beer that started it all - and it’s not done yet... PUNK - Quintessential Empire with an anarchic twist.",
+          "LogoURL": "https://www.brewdog.com/static/version1600847552/frontend/Born/arcticFox/en_US/images/logo.svg",
+          "CoverURL": "https://www.brewdog.com/static/version1600847552/frontend/Born/arcticFox/en_US/images/logo.svg",
+          "Founded": "2018",
+          "Founder": "Khomkrid Lerdprasert",
+          "SiteURL": "https://www.aofiee.dev"
+        }
+      }
+    ],
+    "fee": {
+      "amount": [],
+      "gas": "200000"
+    },
+    "signatures": [
+      {
+        "pub_key": {
+          "type": "tendermint/PubKeySecp256k1",
+          "value": "AiBhzXxG4M52z5Y2edbp5lu4MIel1hdLV97n6KdgfN2F"
+        },
+        "signature": "tCeoxk75e+P91a4Dwz2nvXdDB/vJxT3eTDSsAYfBRzwomdDWaNs82nTadNloHr/FAOFd95gtVGLCC011anbkBw=="
+      }
+    ],
+    "memo": ""
+  }
+}
+```
+
+```bash
+appcli tx broadcast signedTx.json
+```
+
+```bash
+curl -XPOST -s http://localhost:1317/brewer/module/create/withdraw --data-binary '{"base_req":{"from":"'$(appcli keys show aofiee -a)'","chain_id":"beer"},"Reciever":"'$(appcli keys show aofiee -a)'","Amount":"200rune"}' > unsignedTx.json
+```

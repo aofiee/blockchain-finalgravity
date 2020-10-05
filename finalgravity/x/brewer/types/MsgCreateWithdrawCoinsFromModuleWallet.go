@@ -1,7 +1,7 @@
 package types
 
 import (
-	"fmt"
+	// "fmt"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -44,13 +44,13 @@ func (msg MsgCreateWithdrawCoinsFromModuleWallet) Type() string {
 
 //GetSigners function
 func (msg MsgCreateWithdrawCoinsFromModuleWallet) GetSigners() []sdk.AccAddress {
-	fmt.Printf("msg.Reciever %v\n", msg.Reciever)
+	// fmt.Printf("msg.Reciever %v\n", msg.Reciever)
 	return []sdk.AccAddress{msg.Reciever}
 }
 
 //GetSignBytes function
 func (msg MsgCreateWithdrawCoinsFromModuleWallet) GetSignBytes() []byte {
-	fmt.Printf("msg %v\n", msg)
+	// fmt.Printf("msg %v\n", msg)
 	bz := ModuleCdc.MustMarshalJSON(msg)
 	return sdk.MustSortJSON(bz)
 }
