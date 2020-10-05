@@ -10,7 +10,7 @@ var _ sdk.Msg = &MsgCreateBrewer{}
 
 //MsgCreateBrewer struct
 type MsgCreateBrewer struct {
-	Creator      sdk.AccAddress `json:"creator" yaml:"creator"`
+	Creator      sdk.AccAddress `json:"Creator" yaml:"Creator"`
 	BrewerID     string         `json:"BrewerID" yaml:"BrewerID"`
 	TypeOfBrewer string         `json:"TypeOfBrewer" yaml:"TypeOfBrewer"`
 	Address      string         `json:"Address" yaml:"Address"`
