@@ -8,6 +8,7 @@ import (
 	"github.com/aofiee/finalgravity/x/beer/types"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/x/bank"
 )
 
 // Keeper of the beer store
@@ -19,7 +20,7 @@ type Keeper struct {
 }
 
 // NewKeeper creates a beer keeper
-func NewKeeper(cdc *codec.Codec, key sdk.StoreKey, paramspace types.ParamSubspace) Keeper {
+func NewKeeper(coinKeeper bank.Keeper, cdc *codec.Codec, key sdk.StoreKey) Keeper {
 	keeper := Keeper{
 		CoinKeeper: coinKeeper,
 		storeKey:   key,

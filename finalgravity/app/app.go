@@ -10,6 +10,8 @@ import (
 	tmos "github.com/tendermint/tendermint/libs/os"
 	dbm "github.com/tendermint/tm-db"
 
+	"github.com/aofiee/finalgravity/x/beer"
+	"github.com/aofiee/finalgravity/x/brewer"
 	bam "github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/simapp"
@@ -25,7 +27,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/slashing"
 	"github.com/cosmos/cosmos-sdk/x/staking"
 	"github.com/cosmos/cosmos-sdk/x/supply"
-	"github.com/aofiee/finalgravity/x/brewer"
 )
 
 const appName = "app"
@@ -55,6 +56,7 @@ var (
 		supply.AppModuleBasic{},
 		// TODO: Add your module(s) AppModuleBasic
 		brewer.AppModuleBasic{},
+		beer.AppModuleBasic{},
 	)
 
 	// module account permissions
@@ -103,6 +105,7 @@ type NewApp struct {
 	paramsKeeper   params.Keeper
 	// TODO: Add your module(s)
 	brewerKeeper brewer.Keeper
+	beerKeeper   beer.Keeper
 	// Module Manager
 	mm *module.Manager
 
@@ -128,7 +131,7 @@ func NewInitApp(
 
 	// TODO: Add the keys that module requires
 	keys := sdk.NewKVStoreKeys(bam.MainStoreKey, auth.StoreKey, staking.StoreKey,
-		supply.StoreKey, distr.StoreKey, slashing.StoreKey, params.StoreKey, brewer.StoreKey)
+		supply.StoreKey, distr.StoreKey, slashing.StoreKey, params.StoreKey, brewer.StoreKey, beer.StoreKey)
 
 	tKeys := sdk.NewTransientStoreKeys(staking.TStoreKey, params.TStoreKey)
 
@@ -214,6 +217,11 @@ func NewInitApp(
 		app.cdc,
 		keys[brewer.StoreKey],
 	)
+	app.beerKeeper = beer.NewKeeper(
+		app.bankKeeper,
+		app.cdc,
+		keys[beer.StoreKey],
+	)
 	// NOTE: Any module instantiated in the module manager that is later modified
 	// must be passed by reference here.
 	app.mm = module.NewManager(
@@ -221,6 +229,7 @@ func NewInitApp(
 		auth.NewAppModule(app.accountKeeper),
 		bank.NewAppModule(app.bankKeeper, app.accountKeeper),
 		brewer.NewAppModule(app.brewerKeeper, app.bankKeeper),
+		beer.NewAppModule(app.beerKeeper, app.bankKeeper),
 		supply.NewAppModule(app.supplyKeeper, app.accountKeeper),
 		distr.NewAppModule(app.distrKeeper, app.accountKeeper, app.supplyKeeper, app.stakingKeeper),
 		slashing.NewAppModule(app.slashingKeeper, app.accountKeeper, app.stakingKeeper),
@@ -246,6 +255,7 @@ func NewInitApp(
 		slashing.ModuleName,
 		// TODO: Add your module(s)
 		brewer.ModuleName,
+		beer.ModuleName,
 		supply.ModuleName,
 		genutil.ModuleName,
 	)

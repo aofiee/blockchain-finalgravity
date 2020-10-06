@@ -6,21 +6,22 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/spf13/cobra"
 
-	abci "github.com/tendermint/tendermint/abci/types"
-
+	"github.com/aofiee/finalgravity/x/beer/client/cli"
+	"github.com/aofiee/finalgravity/x/beer/client/rest"
+	"github.com/aofiee/finalgravity/x/beer/keeper"
+	"github.com/aofiee/finalgravity/x/beer/types"
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
-	"github.com/aofiee/finalgravity/x/beer/client/cli"
-	"github.com/aofiee/finalgravity/x/beer/client/rest"
-	"github.com/aofiee/finalgravity/x/beer/keeper"
+	"github.com/cosmos/cosmos-sdk/x/bank"
+	abci "github.com/tendermint/tendermint/abci/types"
 )
 
 // Type check to ensure the interface is properly implemented
 var (
-	_ module.AppModule           = AppModule{}
-	_ module.AppModuleBasic      = AppModuleBasic{}
+	_ module.AppModule      = AppModule{}
+	_ module.AppModuleBasic = AppModuleBasic{}
 )
 
 // AppModuleBasic defines the basic application module used by the beer module.
@@ -72,16 +73,17 @@ func (AppModuleBasic) GetQueryCmd(cdc *codec.Codec) *cobra.Command {
 // AppModule implements an application module for the beer module.
 type AppModule struct {
 	AppModuleBasic
-
-	keeper        keeper.Keeper
+	keeper     keeper.Keeper
+	coinKeeper bank.Keeper
 	// TODO: Add keepers that your application depends on
 }
 
 // NewAppModule creates a new AppModule object
-func NewAppModule(k keeper.Keeper, /*TODO: Add Keepers that your application depends on*/) AppModule {
+func NewAppModule(k keeper.Keeper, bankKeeper bank.Keeper) AppModule {
 	return AppModule{
-		AppModuleBasic:      AppModuleBasic{},
-		keeper:              k,
+		AppModuleBasic: AppModuleBasic{},
+		keeper:         k,
+		coinKeeper:     bankKeeper,
 		// TODO: Add keepers that your application depends on
 	}
 }
@@ -111,7 +113,7 @@ func (AppModule) QuerierRoute() string {
 
 // NewQuerierHandler returns the beer module sdk.Querier.
 func (am AppModule) NewQuerierHandler() sdk.Querier {
-	return types.NewQuerier(am.keeper)
+	return NewQuerier(am.keeper)
 }
 
 // InitGenesis performs genesis initialization for the beer module. It returns

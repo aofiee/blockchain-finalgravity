@@ -2,6 +2,7 @@ package cli
 
 import (
 	"bufio"
+	"fmt"
 	"time"
 
 	"github.com/spf13/cobra"
@@ -37,8 +38,8 @@ func GetCmdCreateBeer(cdc *codec.Codec) *cobra.Command {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 			inBuf := bufio.NewReader(cmd.InOrStdin())
 			txBldr := auth.NewTxBuilderFromCLI(inBuf).WithTxEncoder(utils.GetTxEncoder(cdc))
-			createAt := time.Now()
-			msg := types.NewMsgCreateBeer(cliCtx.GetFromAddress(), argsBrewerID, argsBeerName, argsTypeOfBeer, argsStyleBeer, argsTagLine, argsAppearance, argsTaste, argsAroma, argsStrength, argsStrength, argsStory, argsImageLabel, createAt)
+			createAt := fmt.Sprintf("%s", time.Now())
+			msg := types.NewMsgCreateBeer(cliCtx.GetFromAddress(), argsBrewerID, argsBeerName, argsTypeOfBeer, argsStyleBeer, argsTagLine, argsAppearance, argsTaste, argsAroma, argsStrength, argsStory, argsImageLabel, createAt)
 			err := msg.ValidateBasic()
 			if err != nil {
 				return err

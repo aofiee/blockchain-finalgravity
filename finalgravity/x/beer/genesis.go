@@ -2,7 +2,7 @@ package beer
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	abci "github.com/tendermint/tendermint/abci/types"
+	// abci "github.com/tendermint/tendermint/abci/types"
 	"github.com/aofiee/finalgravity/x/beer/types"
 )
 

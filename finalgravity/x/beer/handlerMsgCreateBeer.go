@@ -19,7 +19,7 @@ func handleMsgCreateBeer(ctx sdk.Context, k keeper.Keeper, msg types.MsgCreateBe
 		TypeOfBeer: msg.TypeOfBeer,
 		StyleBeer:  msg.StyleBeer,
 		TagLine:    msg.TagLine,
-		Appearance: msg.appearance,
+		Appearance: msg.Appearance,
 		Taste:      msg.Taste,
 		Aroma:      msg.Aroma,
 		Strength:   msg.Strength,
