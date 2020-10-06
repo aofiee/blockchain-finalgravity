@@ -28,7 +28,7 @@ func GetCmdListBeer(queryRoute string, cdc *codec.Codec) *cobra.Command {
 	}
 }
 
-//GetCmdRetriveBrewerWallet function
+//GetCmdRetriveBeerWallet function
 func GetCmdRetriveBeerWallet(queryRoute string, cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
 		Use:   "get-wallet",
