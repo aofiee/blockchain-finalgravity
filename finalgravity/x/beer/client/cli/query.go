@@ -30,6 +30,7 @@ func GetQueryCmd(queryRoute string, cdc *codec.Codec) *cobra.Command {
 	beerQueryCmd.AddCommand(
 		flags.GetCommands(
 			GetCmdListBeer(queryRoute, cdc),
+			GetCmdRetriveBeerWallet(queryRoute, cdc),
 		)...,
 	)
 

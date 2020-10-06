@@ -2,7 +2,8 @@ package types
 
 //const
 const (
-	QueryListBeer = "list-beer"
+	QueryListBeer      = "list-beer"
+	QueryGetBeerWallet = "get-wallet"
 )
 
 /*

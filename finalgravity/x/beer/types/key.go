@@ -16,5 +16,6 @@ const (
 
 //BrewerPrefix const
 const (
-	BeerPrefix = "beer-"
+	BeerPrefix       = "beer-"
+	BeerWalletPrefix = "beer-wallet-"
 )

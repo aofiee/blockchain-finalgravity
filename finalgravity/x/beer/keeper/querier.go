@@ -14,6 +14,8 @@ func NewQuerier(k Keeper) sdk.Querier {
 		switch path[0] {
 		case types.QueryListBeer:
 			return listBeer(ctx, k)
+		case types.QueryGetBeerWallet:
+			return GetModuleBalance(ctx, k)
 		default:
 			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "unknown beer query endpoint")
 		}
