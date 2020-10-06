@@ -11,6 +11,7 @@ var _ sdk.Msg = &MsgCreateBeer{}
 //MsgCreateBeer struct
 type MsgCreateBeer struct {
 	Creator    sdk.AccAddress `json:"Creator" yaml:"Creator"`
+	BrewerID   string         `json:"BrewerID" yaml:"BrewerID"`
 	BeerID     string         `json:"BeerID" yaml:"BeerID"`
 	BeerName   string         `json:"BeerName" yaml:"BeerName"`
 	TypeOfBeer string         `json:"TypeOfBeer" yaml:"TypeOfBeer"`
@@ -26,9 +27,10 @@ type MsgCreateBeer struct {
 }
 
 //NewMsgCreateBeer function
-func NewMsgCreateBeer(creator sdk.AccAddress, beername string, typeofbeer string, stylebeer string, tagline string, appearance string, taste string, aroma string, strength string, story string, imagelabel string, createdat string) MsgCreateBeer {
+func NewMsgCreateBeer(creator sdk.AccAddress, brewerid string, beername string, typeofbeer string, stylebeer string, tagline string, appearance string, taste string, aroma string, strength string, story string, imagelabel string, createdat string) MsgCreateBeer {
 	return MsgCreateBeer{
 		Creator:    creator,
+		BrewerID:   brewerid,
 		BeerID:     uuid.New().String(),
 		BeerName:   beername,
 		TypeOfBeer: typeofbeer,

@@ -17,6 +17,7 @@ const (
 //Beer struct
 type Beer struct {
 	Creator    sdk.AccAddress `json:"Creator" yaml:"Creator"`
+	BrewerID   string         `json:"BrewerID" yaml:"BrewerID"`
 	BeerID     string         `json:"BeerID" yaml:"BeerID"`
 	BeerName   string         `json:"BeerName" yaml:"BeerName"`
 	TypeOfBeer string         `json:"TypeOfBeer" yaml:"TypeOfBeer"`
