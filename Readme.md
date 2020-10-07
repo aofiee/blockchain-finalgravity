@@ -368,3 +368,7 @@ appcli tx beer create-beer "c73c6558-238c-4166-a7d9-f088b37f16bf" \
 ```bash
 appcli q beer list-beer
 ```
+
+```bash
+docker run -it -d --name testnet -v $(pwd)/finalgravity:/finalgravity -p 12345:12345 -p 1317:1317 -p 26657:26657 -p 8080:8080 -p 26656:26656 finalgravity
+```
