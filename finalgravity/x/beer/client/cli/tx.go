@@ -25,6 +25,7 @@ func GetTxCmd(cdc *codec.Codec) *cobra.Command {
 		// TODO: Add tx based commands
 		// GetCmd<Action>(cdc)
 		GetCmdCreateBeer(cdc),
+		GetCmdCreateWithdrawCoinsFromModuleWallet(cdc),
 	)...)
 
 	return beerTxCmd

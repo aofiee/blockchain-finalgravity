@@ -48,3 +48,28 @@ func GetCmdCreateBeer(cdc *codec.Codec) *cobra.Command {
 		},
 	}
 }
+
+//GetCmdCreateWithdrawCoinsFromModuleWallet function
+func GetCmdCreateWithdrawCoinsFromModuleWallet(cdc *codec.Codec) *cobra.Command {
+	return &cobra.Command{
+		Use:   "withdraw-to [Amount]",
+		Short: "Withdraw Coins to Address",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			Amount := string(args[0])
+			cliCtx := context.NewCLIContext().WithCodec(cdc)
+			toAddress := cliCtx.GetFromAddress()
+			inBuf := bufio.NewReader(cmd.InOrStdin())
+			txBldr := auth.NewTxBuilderFromCLI(inBuf).WithTxEncoder(utils.GetTxEncoder(cdc))
+			coins, _ := sdk.ParseCoins(Amount)
+			// fmt.Printf("Address %v\n", toAddress)
+			msg := types.NewMsgCreateWithdrawCoinsFromModuleWallet(toAddress, coins)
+			// fmt.Printf("msg %v\n", msg)
+			err := msg.ValidateBasic()
+			if err != nil {
+				return err
+			}
+			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg})
+		},
+	}
+}
