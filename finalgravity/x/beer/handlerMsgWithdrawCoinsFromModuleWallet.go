@@ -12,7 +12,7 @@ import (
 )
 
 func handleMsgCreateWithdrawCoinsFromModuleWallet(ctx sdk.Context, k Keeper, msg types.MsgCreateWithdrawCoinsFromModuleWallet) (*sdk.Result, error) {
-	fmt.Printf("handleMsgWithdrawCoinsFromModuleWallet\n")
+	fmt.Printf("beer handleMsgWithdrawCoinsFromModuleWallet\n")
 	var wallet = types.WithdrawCoinsFromModuleWallet{
 		WithdrawID: msg.WithdrawID,
 		Sender:     msg.Sender,
