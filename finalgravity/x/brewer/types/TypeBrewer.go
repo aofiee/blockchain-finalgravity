@@ -6,7 +6,7 @@ import (
 
 //Brewer struct
 type Brewer struct {
-	Creator      sdk.AccAddress `json:"creator" yaml:"creator"`
+	Creator      sdk.AccAddress `json:"Creator" yaml:"Creator"`
 	BrewerID     string         `json:"BrewerID" yaml:"BrewerID"`
 	TypeOfBrewer string         `json:"TypeOfBrewer" yaml:"TypeOfBrewer"`
 	Address      string         `json:"Address" yaml:"Address"`
@@ -22,7 +22,7 @@ type Brewer struct {
 
 //BrewerWallet struct
 type BrewerWallet struct {
-	Creator sdk.AccAddress `json:"creator" yaml:"creator"`
+	Creator sdk.AccAddress `json:"Creator" yaml:"Creator"`
 	Amount  sdk.Coins      `json:"Amount" yaml:"Amount"`
 }
 

@@ -13,7 +13,7 @@ import (
 
 type createBrewerRequest struct {
 	BaseReq      rest.BaseReq `json:"base_req"`
-	Creator      string       `json:"creator" yaml:"creator"`
+	Creator      string       `json:"Creator" yaml:"Creator"`
 	BrewerID     string       `json:"BrewerID" yaml:"BrewerID"`
 	TypeOfBrewer string       `json:"TypeOfBrewer" yaml:"TypeOfBrewer"`
 	Address      string       `json:"Address" yaml:"Address"`

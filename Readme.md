@@ -294,7 +294,7 @@ curl -s http://localhost:1317/auth/accounts/$(appcli keys show aofiee -a)
 ```
 
 ```bash
-curl -XPOST -s http://localhost:1317/brewer/create --data-binary '{"base_req":{"from":"'$(appcli keys show aofiee -a)'","chain_id":"beer"},"creator":"'$(appcli keys show aofiee -a)'","TypeOfBrewer":"Home Brew","Address":"44/261 Passorn Onnut Prawet Prawet Bangkok 10250","Telephone":"+66925905444","Email":"aofiee666@gmail.com","Story":"Punk IPA is the beer that kick-started it. This light, golden classic has been subverted with new world hops to create an explosion of flavour. Bursts of caramel and tropical fruit with an all-out riot of grapefruit, pineapple and lychee, precede a spiky bitter finish. This is the beer that started it all - and it’s not done yet... PUNK - Quintessential Empire with an anarchic twist.","LogoURL":"https://www.brewdog.com/static/version1600847552/frontend/Born/arcticFox/en_US/images/logo.svg","CoverURL":"https://www.brewdog.com/static/version1600847552/frontend/Born/arcticFox/en_US/images/logo.svg","Founded":"2018","Founder":"Khomkrid Lerdprasert","SiteURL":"https://www.aofiee.dev"}' > unsignedTx.json
+curl -XPOST -s http://localhost:1317/brewer/create --data-binary '{"base_req":{"from":"'$(appcli keys show aofiee -a)'","chain_id":"beer"},"Creator":"'$(appcli keys show aofiee -a)'","TypeOfBrewer":"Home Brew","Address":"44/261 Passorn Onnut Prawet Prawet Bangkok 10250","Telephone":"+66925905444","Email":"aofiee666@gmail.com","Story":"Punk IPA is the beer that kick-started it. This light, golden classic has been subverted with new world hops to create an explosion of flavour. Bursts of caramel and tropical fruit with an all-out riot of grapefruit, pineapple and lychee, precede a spiky bitter finish. This is the beer that started it all - and it’s not done yet... PUNK - Quintessential Empire with an anarchic twist.","LogoURL":"https://www.brewdog.com/static/version1600847552/frontend/Born/arcticFox/en_US/images/logo.svg","CoverURL":"https://www.brewdog.com/static/version1600847552/frontend/Born/arcticFox/en_US/images/logo.svg","Founded":"2018","Founder":"Khomkrid Lerdprasert","SiteURL":"https://www.aofiee.dev"}' > unsignedTx.json
 ```
 
 ```bash
@@ -347,4 +347,28 @@ appcli tx broadcast signedTx.json
 
 ```bash
 curl -XPOST -s http://localhost:1317/brewer/module/create/withdraw --data-binary '{"base_req":{"from":"'$(appcli keys show aofiee -a)'","chain_id":"beer"},"Reciever":"'$(appcli keys show aofiee -a)'","Amount":"200rune"}' > unsignedTx.json
+```
+
+brewerID c73c6558-238c-4166-a7d9-f088b37f16bf
+
+```bash
+appcli tx beer create-beer "13c0a0a0-e203-43dd-8ec3-ef7001aa035c" \
+"Hacker NEIPA v.0.0.1" \
+"Ale" \
+"New England Indian Ple Ale" \
+"เบียร์ประเภท NEIPA สีเหลืองทอง เพิ่มสเน่ห์ความหวานหอมด้วย Honey Malt ตัดด้วยรสชาติขมกลางๆ ที่มีกลิ่นของผลไม้เมืองร้อนตบท้ายให้ความสดชื่น" \
+"สีเหลืองทองขุ่น" \
+"ขมกลางๆ" \
+"กลิ่นผลไม้ และลิ้นจี่" \
+"7% ABV" \
+"Hacker Beer Carft เกิดจากกลุ่ม Developer ที่ชื่นชอบในรสชาติของ เบียร์ รวมตัวกันสร้างเบียร์ที่ตัวเองชอบขึ้นมา" \
+"https://scontent.fbkk8-2.fna.fbcdn.net/v/t1.0-9/71324853_119539346114839_2019089758214422528_n.png" --from=aofiee
+```
+
+```bash
+appcli q beer list-beer
+```
+
+```bash
+docker run -it -d --name testnet -v $(pwd)/finalgravity:/finalgravity -p 12345:12345 -p 1317:1317 -p 26657:26657 -p 8080:8080 -p 26656:26656 finalgravity
 ```

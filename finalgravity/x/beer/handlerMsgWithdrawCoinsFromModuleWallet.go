@@ -1,4 +1,4 @@
-package brewer
+package beer
 
 import (
 	"fmt"
@@ -8,11 +8,11 @@ import (
 
 	// sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 
-	"github.com/aofiee/finalgravity/x/brewer/types"
+	"github.com/aofiee/finalgravity/x/beer/types"
 )
 
 func handleMsgCreateWithdrawCoinsFromModuleWallet(ctx sdk.Context, k Keeper, msg types.MsgCreateWithdrawCoinsFromModuleWallet) (*sdk.Result, error) {
-	fmt.Printf("brewer handleMsgWithdrawCoinsFromModuleWallet\n")
+	fmt.Printf("beer handleMsgWithdrawCoinsFromModuleWallet\n")
 	var wallet = types.WithdrawCoinsFromModuleWallet{
 		WithdrawID: msg.WithdrawID,
 		Sender:     msg.Sender,
