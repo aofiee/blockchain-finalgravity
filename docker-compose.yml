@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  finalgravity:
+    # build: ./
+    image: finalgravity
+    volumes:
+      - ./finalgravity/:/finalgravity
+    ports:
+      - 12345:12345
+      - 1317:1317
+      - 26657:26657
+      - 8080:8080
+      - 26656:26656
