@@ -20,10 +20,10 @@ func NewHandler(k Keeper) sdk.Handler {
 		// case Msg<Action>:
 		// 	return handleMsg<Action>(ctx, k, msg)
 		case types.MsgCreateBrewer:
-			fmt.Printf("MsgCreateBrewer")
+			// fmt.Printf("MsgCreateBrewer")
 			return handleMsgCreateBrewer(ctx, k, msg)
 		case types.MsgCreateWithdrawCoinsFromModuleWallet:
-			fmt.Printf("types.MsgCreateWithdrawCoinsFromModuleWallet %v", msg)
+			// fmt.Printf("brewer types.MsgCreateWithdrawCoinsFromModuleWallet %v", msg)
 			return handleMsgCreateWithdrawCoinsFromModuleWallet(ctx, k, msg)
 		default:
 			fmt.Printf("default")

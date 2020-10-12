@@ -20,7 +20,7 @@ func GetCmdCreateBrewer(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
 		Use:   "create-brewer [TypeOfBrewer] [Address] [Telephone] [Email] [Story] [LogoURL] [CoverURL] [Founded] [Founder] [SiteURL]",
 		Short: "Creates a new brewer",
-		Args:  cobra.MinimumNArgs(2),
+		Args:  cobra.ExactArgs(10),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			argsTypeOfBrewer := string(args[0])
 			argsAddress := string(args[1])

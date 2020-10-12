@@ -352,7 +352,7 @@ curl -XPOST -s http://localhost:1317/brewer/module/create/withdraw --data-binary
 brewerID c73c6558-238c-4166-a7d9-f088b37f16bf
 
 ```bash
-appcli tx beer create-beer "96d9ad94-a2f4-4bb8-b5ee-d2c55e1be1d3" \
+appcli tx beer create-beer "13c0a0a0-e203-43dd-8ec3-ef7001aa035c" \
 "Hacker NEIPA v.0.0.1" \
 "Ale" \
 "New England Indian Ple Ale" \
