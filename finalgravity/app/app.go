@@ -12,6 +12,7 @@ import (
 
 	"github.com/aofiee/finalgravity/x/beer"
 	"github.com/aofiee/finalgravity/x/brewer"
+	"github.com/aofiee/finalgravity/x/recipes"
 	bam "github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/simapp"
@@ -57,6 +58,7 @@ var (
 		// TODO: Add your module(s) AppModuleBasic
 		brewer.AppModuleBasic{},
 		beer.AppModuleBasic{},
+		recipes.AppModuleBasic{},
 	)
 
 	// module account permissions
@@ -104,8 +106,9 @@ type NewApp struct {
 	supplyKeeper   supply.Keeper
 	paramsKeeper   params.Keeper
 	// TODO: Add your module(s)
-	brewerKeeper brewer.Keeper
-	beerKeeper   beer.Keeper
+	brewerKeeper  brewer.Keeper
+	beerKeeper    beer.Keeper
+	recipesKeeper recipes.Keeper
 	// Module Manager
 	mm *module.Manager
 
@@ -131,7 +134,7 @@ func NewInitApp(
 
 	// TODO: Add the keys that module requires
 	keys := sdk.NewKVStoreKeys(bam.MainStoreKey, auth.StoreKey, staking.StoreKey,
-		supply.StoreKey, distr.StoreKey, slashing.StoreKey, params.StoreKey, brewer.StoreKey, beer.StoreKey)
+		supply.StoreKey, distr.StoreKey, slashing.StoreKey, params.StoreKey, brewer.StoreKey, beer.StoreKey, recipes.StoreKey)
 
 	tKeys := sdk.NewTransientStoreKeys(staking.TStoreKey, params.TStoreKey)
 
@@ -222,6 +225,12 @@ func NewInitApp(
 		app.cdc,
 		keys[beer.StoreKey],
 	)
+	app.recipesKeeper = recipes.NewKeeper(
+		app.bankKeeper,
+		app.cdc,
+		keys[recipes.StoreKey],
+	)
+
 	// NOTE: Any module instantiated in the module manager that is later modified
 	// must be passed by reference here.
 	app.mm = module.NewManager(
@@ -229,6 +238,7 @@ func NewInitApp(
 		auth.NewAppModule(app.accountKeeper),
 		bank.NewAppModule(app.bankKeeper, app.accountKeeper),
 		brewer.NewAppModule(app.brewerKeeper, app.bankKeeper),
+		recipes.NewAppModule(app.recipesKeeper, app.bankKeeper),
 		beer.NewAppModule(app.beerKeeper, app.bankKeeper),
 		supply.NewAppModule(app.supplyKeeper, app.accountKeeper),
 		distr.NewAppModule(app.distrKeeper, app.accountKeeper, app.supplyKeeper, app.stakingKeeper),

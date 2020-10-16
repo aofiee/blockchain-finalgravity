@@ -13,3 +13,9 @@ const (
 	// QuerierRoute to be used for querier msgs
 	QuerierRoute = ModuleName
 )
+
+//RecipesPrefix const
+const (
+	RecipesPrefix       = "recipes-"
+	RecipesWalletPrefix = "recipes-wallet-"
+)

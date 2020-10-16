@@ -7,6 +7,7 @@ import (
 //Recipes struct
 type Recipes struct {
 	Creator    sdk.AccAddress `json:"Creator" yaml:"Creator"`
+	BrewerID   string         `json:"BrewerID" yaml:"BrewerID"`
 	RecipesID  string         `json:"RecipesID" yaml:"RecipesID"`
 	BeerID     string         `json:"BeerID" yaml:"BeerID"`
 	BatchNo    string         `json:"BatchNo" yaml:"BatchNo"`
@@ -29,7 +30,7 @@ type Ages struct {
 
 //Ferment struct
 type Ferment struct {
-	YeastProperties []YeastProperties `json:"Creator" yaml:"Creator"`
+	YeastProperties []YeastProperties `json:"YeastProperties" yaml:"YeastProperties"`
 	Fermentation    Fermentation      `json:"Fermentation" yaml:"Fermentation"`
 	HopsProperties  []HopsProperties  `json:"HopsProperties" yaml:"HopsProperties"`
 	OtherProperties []OtherProperties `json:"OtherProperties" yaml:"OtherProperties"`

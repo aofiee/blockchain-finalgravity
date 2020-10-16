@@ -2,15 +2,12 @@ package cli
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/spf13/cobra"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
-	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	"github.com/aofiee/finalgravity/x/recipes/types"
 )
@@ -28,7 +25,8 @@ func GetQueryCmd(queryRoute string, cdc *codec.Codec) *cobra.Command {
 
 	recipesQueryCmd.AddCommand(
 		flags.GetCommands(
-	// TODO: Add query Cmds
+			GetCmdListRecipes(queryRoute, cdc),
+			GetCmdRetriveRecipesWallet(queryRoute, cdc),
 		)...,
 	)
 
