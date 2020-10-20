@@ -4,4 +4,5 @@ package types
 const (
 	QueryListRecipes      = "list-recipes"
 	QueryGetRecipesWallet = "get-wallet"
+	QueryGetRecipesByID   = "get-recipes"
 )

@@ -27,6 +27,7 @@ func GetQueryCmd(queryRoute string, cdc *codec.Codec) *cobra.Command {
 		flags.GetCommands(
 			GetCmdListRecipes(queryRoute, cdc),
 			GetCmdRetriveRecipesWallet(queryRoute, cdc),
+			GetCmdRetriveRecipesByID(queryRoute,cdc),
 		)...,
 	)
 

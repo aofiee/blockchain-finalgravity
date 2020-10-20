@@ -23,6 +23,7 @@ func listBrewer(ctx sdk.Context, k Keeper) ([]byte, error) {
 	var brewerList []types.Brewer
 	store := ctx.KVStore(k.storeKey)
 	iterator := sdk.KVStorePrefixIterator(store, []byte(types.BrewerPrefix))
+	fmt.Printf("types.BrewerPrefix %v", types.BrewerPrefix)
 	for ; iterator.Valid(); iterator.Next() {
 		var brewer types.Brewer
 		k.cdc.MustUnmarshalBinaryLengthPrefixed(store.Get(iterator.Key()), &brewer)

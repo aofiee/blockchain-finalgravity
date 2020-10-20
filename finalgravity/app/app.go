@@ -266,6 +266,7 @@ func NewInitApp(
 		// TODO: Add your module(s)
 		brewer.ModuleName,
 		beer.ModuleName,
+		recipes.ModuleName,
 		supply.ModuleName,
 		genutil.ModuleName,
 	)

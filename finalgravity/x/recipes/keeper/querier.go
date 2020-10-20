@@ -16,6 +16,8 @@ func NewQuerier(k Keeper) sdk.Querier {
 			return listRecipes(ctx, k)
 		case types.QueryGetRecipesWallet:
 			return GetModuleBalance(ctx, k)
+		case types.QueryGetRecipesByID:
+			return GetRecipesByID(ctx, path[1:], k)
 		default:
 			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "unknown recipes query endpoint")
 		}

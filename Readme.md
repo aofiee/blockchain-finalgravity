@@ -210,7 +210,7 @@ appcli q brewer list-brewer
 ```
 
 ```bash
-appcli q brewer get-brewer 5fb25b77-8a7b-40a5-9672-864ef673b871
+appcli q brewer get-brewer da182f26-6553-4c8e-b91e-a9553e413778
 {
   "creator": "cosmos1wtdy42wxv89jh0vndwk4a6qjz946g7lt2yt9ge",
   "BrewerID": "6983a152-e282-46dc-aabb-fe234b5c252d",
@@ -352,7 +352,7 @@ curl -XPOST -s http://localhost:1317/brewer/module/create/withdraw --data-binary
 brewerID c73c6558-238c-4166-a7d9-f088b37f16bf
 
 ```bash
-appcli tx beer create-beer "5fb25b77-8a7b-40a5-9672-864ef673b871" \
+appcli tx beer create-beer "13a0232b-0365-48bf-b9fb-53beaf25f6b2" \
 "Hacker NEIPA v.0.0.1" \
 "Ale" \
 "New England Indian Ple Ale" \
@@ -375,5 +375,14 @@ docker run -it -d --name testnet -v $(pwd)/finalgravity:/finalgravity -p 12345:1
 Create Recipes
 
 ```bash
-appcli tx recipes create-recipes 5fb25b77-8a7b-40a5-9672-864ef673b871 26469b52-f119-41ad-910a-801d561e2434 1 '{"OriginalGravity":"5.10","ExpectedFinalGravity":"1.01","FinalGravity":"1.0","TotalLiquor":"30 Ltr","Makes":"20 Ltr","ReadyToDrink":"20201231","EstimatedABV":"10%","BitternessRating":"30","ColourRating":"57"}' '{"Liquor":"12 Ltr","MashTime":"60 min","Temperature":"150 F","GrainBillProperties":[{"Name":"Flake Oat","Quantity":"1 Kg"},{"Name":"Base Malt","Quantity":"1 Kg"}]}' '{"Liquor":"18 Ltr","BoilTime":"60 min","HopsProperties":[{"Name":"Citra","Quantity":"1 oz","IBU":"10","WhenToAdd":"35 min"},{"Name":"Mosaic","Quantity":"0.5 oz","IBU":"10","WhenToAdd":"50 min"}],"OtherProperties":[{"Name":"White Froc","Quantity":"1 Tablet","WhenToAdd":"30 min"},{"Name":"Orange Skin","Quantity":"1 Kg","WhenToAdd":"55 min"}]}' '{"YeastProperties":[{"Name":"US-05","Quantity":"1"}],"Fermentation":{"Temperature":"24 C","Conditioning":"1 Week"},"HopsProperties":[{"Name":"Citra","Quantity":"1 oz","IBU":"10","WhenToAdd":"35 min"},{"Name":"Mosaic","Quantity":"0.5 oz","IBU":"10","WhenToAdd":"50 min"}],"OtherProperties":[{"Name":"Orange","Quantity":"15 Kg","WhenToAdd":"After 2 week"}]}' '{"BestBefore":"20201231","ExpiredDate":"20211231","BottledDate":"20200930","BestAfter":"20201130"}' 'Hacker Craft' 'https://scontent.fbkk8-2.fna.fbcdn.net/v/t1.0-9/71324853_119539346114839_2019089758214422528_n.png'
+appcli tx recipes create-recipes '13a0232b-0365-48bf-b9fb-53beaf25f6b2' \
+'61d7ac11-93ea-456e-9450-8b981f4a6bc8' 1 \
+'{"OriginalGravity":"5.10","ExpectedFinalGravity":"1.01","FinalGravity":"1.0","TotalLiquor":"30 Ltr","Makes":"20 Ltr","ReadyToDrink":"20201231","EstimatedABV":"10%","BitternessRating":"30","ColourRating":"57"}' \
+'{"Liquor":"12 Ltr","MashTime":"60 min","Temperature":"150 F","GrainBillProperties":[{"Name":"Flake Oat","Quantity":"1 Kg"},{"Name":"Base Malt","Quantity":"1 Kg"}]}' \
+'{"Liquor":"18 Ltr","BoilTime":"60 min","HopsProperties":[{"Name":"Citra","Quantity":"1 oz","IBU":"10","WhenToAdd":"35 min"},{"Name":"Mosaic","Quantity":"0.5 oz","IBU":"10","WhenToAdd":"50 min"}],"OtherProperties":[{"Name":"White Froc","Quantity":"1 Tablet","WhenToAdd":"30 min"},{"Name":"Orange Skin","Quantity":"1 Kg","WhenToAdd":"55 min"}]}' \
+'{"YeastProperties":[{"Name":"US-05","Quantity":"1"}],"Fermentation":{"Temperature":"24 C","Conditioning":"1 Week"},"HopsProperties":[{"Name":"Citra","Quantity":"1 oz","IBU":"10","WhenToAdd":"35 min"},{"Name":"Mosaic","Quantity":"0.5 oz","IBU":"10","WhenToAdd":"50 min"}],"OtherProperties":[{"Name":"Orange","Quantity":"15 Kg","WhenToAdd":"After 2 week"}]}' \
+'{"BestBefore":"20201231","ExpiredDate":"20211231","BottledDate":"20200930","BestAfter":"20201130"}' \
+'Hacker Craft' \
+'https://scontent.fbkk8-2.fna.fbcdn.net/v/t1.0-9/71324853_119539346114839_2019089758214422528_n.png' \
+--from=aofiee
 ```

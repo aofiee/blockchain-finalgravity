@@ -38,4 +38,14 @@ type (
 	Params                                 = types.Params
 	MsgCreateRecipes                       = types.MsgCreateRecipes
 	MsgCreateWithdrawCoinsFromModuleWallet = types.MsgCreateWithdrawCoinsFromModuleWallet
+	MsgAges                                = types.MsgAges
+	MsgFerment                             = types.MsgFerment
+	MsgFermentation                        = types.MsgFermentation
+	MsgYeastProperties                     = types.MsgYeastProperties
+	MsgBoil                                = types.MsgBoil
+	MsgOtherProperties                     = types.MsgOtherProperties
+	MsgHopsProperties                      = types.MsgHopsProperties
+	MsgMashing                             = types.MsgMashing
+	MsgGrainBillProperties                 = types.MsgGrainBillProperties
+	MsgProperties                          = types.MsgProperties
 )

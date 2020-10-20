@@ -104,7 +104,7 @@ type MsgProperties struct {
 
 //NewMsgCreateRecipes function
 func NewMsgCreateRecipes(creator sdk.AccAddress, brewerID string, beerID string, batchNo string, properties MsgProperties, mashing MsgMashing, boil MsgBoil, ferment MsgFerment, ages MsgAges, factory string, imageLabel string) MsgCreateRecipes {
-	return MsgCreateRecipes{
+	msg := MsgCreateRecipes{
 		Creator:    creator,
 		BrewerID:   brewerID,
 		RecipesID:  uuid.New().String(),
@@ -118,6 +118,7 @@ func NewMsgCreateRecipes(creator sdk.AccAddress, brewerID string, beerID string,
 		Factory:    factory,
 		ImageLabel: imageLabel,
 	}
+	return msg
 }
 
 //CreateReciepesConst const
