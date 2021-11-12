@@ -178,7 +178,7 @@ $scaffold module aofiee finalgravity recipes
 
 ```bash
 appcli tx brewer create-brewer "Home Brew" \
-"44/261 Passorn Onnut Prawet Prawet Bangkok 10250" \
+"Prawet Bangkok 10250" \
 "+66925905444" \
 "aofiee666@gmail.com" \
 "Punk IPA is the beer that kick-started it. This light, golden classic has been subverted with new world hops to create an explosion of flavour. Bursts of caramel and tropical fruit with an all-out riot of grapefruit, pineapple and lychee, precede a spiky bitter finish. This is the beer that started it all - and it’s not done yet... PUNK - Quintessential Empire with an anarchic twist." \
@@ -196,7 +196,7 @@ appcli q brewer list-brewer
     "creator": "cosmos184cut6ds3tpatcggzy7mdtxzglwug72day6z9a",
     "BrewerID": "5d2a483f-44a1-4bfe-a919-f40ab88f2dc5",
     "TypeOfBrewer": "Home Brew",
-    "Address": "44/261 Passorn Onnut Prawet Prawet Bangkok 10250",
+    "Address": "Prawet Bangkok 10250",
     "Telephone": "+66925905444",
     "Email": "aofiee666@gmail.com",
     "Story": "Punk IPA is the beer that kick-started it. This light, golden classic has been subverted with new world hops to create an explosion of flavour. Bursts of caramel and tropical fruit with an all-out riot of grapefruit, pineapple and lychee, precede a spiky bitter finish. This is the beer that started it all - and it’s not done yet... PUNK - Quintessential Empire with an anarchic twist.",
@@ -215,7 +215,7 @@ appcli q brewer get-brewer 6983a152-e282-46dc-aabb-fe234b5c252d
   "creator": "cosmos1wtdy42wxv89jh0vndwk4a6qjz946g7lt2yt9ge",
   "BrewerID": "6983a152-e282-46dc-aabb-fe234b5c252d",
   "TypeOfBrewer": "Home Brew",
-  "Address": "44/261 Passorn Onnut Prawet Prawet Bangkok 10250",
+  "Address": "Prawet Bangkok 10250",
   "Telephone": "+66925905444",
   "Email": "aofiee666@gmail.com",
   "Story": "Punk IPA is the beer that kick-started it. This light, golden classic has been subverted with new world hops to create an explosion of flavour. Bursts of caramel and tropical fruit with an all-out riot of grapefruit, pineapple and lychee, precede a spiky bitter finish. This is the beer that started it all - and it’s not done yet... PUNK - Quintessential Empire with an anarchic twist.",
@@ -294,7 +294,7 @@ curl -s http://localhost:1317/auth/accounts/$(appcli keys show aofiee -a)
 ```
 
 ```bash
-curl -XPOST -s http://localhost:1317/brewer/create --data-binary '{"base_req":{"from":"'$(appcli keys show aofiee -a)'","chain_id":"beer"},"Creator":"'$(appcli keys show aofiee -a)'","TypeOfBrewer":"Home Brew","Address":"44/261 Passorn Onnut Prawet Prawet Bangkok 10250","Telephone":"+66925905444","Email":"aofiee666@gmail.com","Story":"Punk IPA is the beer that kick-started it. This light, golden classic has been subverted with new world hops to create an explosion of flavour. Bursts of caramel and tropical fruit with an all-out riot of grapefruit, pineapple and lychee, precede a spiky bitter finish. This is the beer that started it all - and it’s not done yet... PUNK - Quintessential Empire with an anarchic twist.","LogoURL":"https://www.brewdog.com/static/version1600847552/frontend/Born/arcticFox/en_US/images/logo.svg","CoverURL":"https://www.brewdog.com/static/version1600847552/frontend/Born/arcticFox/en_US/images/logo.svg","Founded":"2018","Founder":"Khomkrid Lerdprasert","SiteURL":"https://www.aofiee.dev"}' > unsignedTx.json
+curl -XPOST -s http://localhost:1317/brewer/create --data-binary '{"base_req":{"from":"'$(appcli keys show aofiee -a)'","chain_id":"beer"},"Creator":"'$(appcli keys show aofiee -a)'","TypeOfBrewer":"Home Brew","Address":"Prawet Bangkok 10250","Telephone":"+66925905444","Email":"aofiee666@gmail.com","Story":"Punk IPA is the beer that kick-started it. This light, golden classic has been subverted with new world hops to create an explosion of flavour. Bursts of caramel and tropical fruit with an all-out riot of grapefruit, pineapple and lychee, precede a spiky bitter finish. This is the beer that started it all - and it’s not done yet... PUNK - Quintessential Empire with an anarchic twist.","LogoURL":"https://www.brewdog.com/static/version1600847552/frontend/Born/arcticFox/en_US/images/logo.svg","CoverURL":"https://www.brewdog.com/static/version1600847552/frontend/Born/arcticFox/en_US/images/logo.svg","Founded":"2018","Founder":"Khomkrid Lerdprasert","SiteURL":"https://www.aofiee.dev"}' > unsignedTx.json
 ```
 
 ```bash
@@ -311,7 +311,7 @@ appcli tx sign unsignedTx.json --from aofiee --offline --chain-id beer --sequenc
           "creator": "cosmos15g40zf9trjyxrwtvds3eq877mc9nhqyfgu8ax5",
           "BrewerID": "bd7032f5-c596-4afb-a44a-26572b99552e",
           "TypeOfBrewer": "Home Brew",
-          "Address": "44/261 Passorn Onnut Prawet Prawet Bangkok 10250",
+          "Address": "Prawet Bangkok 10250",
           "Telephone": "+66925905444",
           "Email": "aofiee666@gmail.com",
           "Story": "Punk IPA is the beer that kick-started it. This light, golden classic has been subverted with new world hops to create an explosion of flavour. Bursts of caramel and tropical fruit with an all-out riot of grapefruit, pineapple and lychee, precede a spiky bitter finish. This is the beer that started it all - and it’s not done yet... PUNK - Quintessential Empire with an anarchic twist.",
